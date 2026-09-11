@@ -1,32 +1,71 @@
+let allHeroes = [];
 
 
-const API_KEY = import.meta.env.VITE_API_KEY
+const loadHeroes = async () => {
+  if (allHeroes.length > 0) return allHeroes;
+
+  try {
+    const res = await fetch("https://akabab.github.io/superhero-api/api/all.json");
+    const data = await res.json();
+    allHeroes = data;
+    return allHeroes;
+  } catch (err) {
+    console.log("Error loading heroes:", err);
+  }
+};
 
 
-export const getHero = async(id)=>{
+const hasValidStats = (hero) => {
+  if (!hero || !hero.powerstats) return false;
 
-    try {
-        const res = await fetch(`https://superheroapi.com/api.php/${API_KEY}/${id}`)
-        const hero = await res.json()
-        return hero
+  const stats = hero.powerstats;
 
-    } catch(err){
-        console.log(err);
+  const requiredStats = [
+    "intelligence",
+    "strength",
+    "speed",
+    "durability",
+    "power",
+    "combat"
+  ];
+
+  return requiredStats.every(stat => {
+    const value = stats[stat];
+    if (!value || value === "null" || isNaN(Number(value))) {
+      return false;
     }
-}
+    return true;
+  });
+};
 
-export const getRandomHero = () =>{
-    const id = Math.floor(Math.random()*732) +1
-   return getHero(id)
-}
+export const getRandomHero = async () => {
+  const heroes = await loadHeroes();
+  const randomIndex = Math.floor(Math.random() * heroes.length);
+  return heroes[randomIndex];
+};
 
-export const getTeam = async ()=>{
+export const getValidHero = async () => {
+  let hero = null;
 
-        const team = []
-        for (let i = 0 ; i < 3; i++){
-            const hero = await getRandomHero()
-            if(hero) {team.push(hero)}
-        }
-    return team;
-}
+  for (let i = 0; i < 10; i++) {
+    const candidate = await getRandomHero();
+    if (hasValidStats(candidate)) {
+      hero = candidate;
+      break;
+    }
+  }
 
+  return hero;
+};
+
+
+export const getTeam = async () => {
+  const team = [];
+
+  while (team.length < 3) {
+    const hero = await getValidHero();
+    if (hero) team.push(hero);
+  }
+
+  return team;
+};

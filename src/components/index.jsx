@@ -1,3 +1,6 @@
 export {default as Arena } from './Arena'
 export {default as HeroCard } from './HeroCard'
 export {default as TeamDisplay } from './TeamDisplay'
+export {default as BattleLog } from './BattleLog'
+export {default as Home } from './Home'
+export {default as Header } from './Header'

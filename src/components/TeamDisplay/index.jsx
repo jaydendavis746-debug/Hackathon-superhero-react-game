@@ -9,9 +9,9 @@ export default function TeamDisplay({ team, title }) {
     <div className="team-display">
       <h2>{title}</h2>
       <div className="team-grid">
-        {team.map((hero, i) => {
-          <HeroCard key={index} hero={hero} />;
-        })}
+        {team.map((hero, i) => (
+          <HeroCard key={i} hero={hero} />
+        ))}
       </div>
     </div>
   );

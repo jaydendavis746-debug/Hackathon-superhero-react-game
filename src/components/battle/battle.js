@@ -43,24 +43,11 @@ export const runBattle = (pTeam, cpuTeam) => {
   });
 
   const winner =
-    pScore > cpuScore ? "Player" :
-    cpuScore > pScore ? "CPU" :
+    pScore > cpuScore ? "Player wins" :
+    cpuScore > pScore ? "CPU wins " :
     "Draw";
 
   return { log, winner };
 };
 
-console.log(
-  runBattle(
-    [
-      { powerstats: { intelligence: 80, strength: 70, speed: 60, durability: 90, power: 85, combat: 75 } },
-      { powerstats: { intelligence: 65, strength: 55, speed: 50, durability: 40, power: 30, combat: 45 } },
-      { powerstats: { intelligence: 90, strength: 85, speed: 80, durability: 75, power: 70, combat: 95 } }
-    ],
-    [
-      { powerstats: { intelligence: 70, strength: 75, speed: 65, durability: 85, power: 80, combat: 70 } },
-      { powerstats: { intelligence: 60, strength: 50, speed: 55, durability: 45, power: 35, combat: 40 } },
-      { powerstats: { intelligence: 95, strength: 80, speed: 85, durability: 70, power: 75, combat: 90 } }
-    ]
-  )
-);
+

@@ -3,11 +3,17 @@ import React from "react";
 export default function HeroCard({ hero }) {
   if (!hero) return null;
 
-  const { name, image, powerstats } = hero;
+
+
+  const { name, images, powerstats } = hero;
 
   return (
     <div className="hero-card">
-      <img src={image?.url} alt={name} className="hero-img" />
+      <img
+        src={images.sm}
+        alt={name}
+        className="hero-img"
+      />
 
       <h3>{name}</h3>
 
