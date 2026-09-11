@@ -7,7 +7,6 @@ import TeamDisplay from "../TeamDisplay";
 export default function Arena() {
   const [playerTeam, setPlayerTeam] = useState([]);
   const [cpuTeam, setCpuTeam] = useState([]);
-  const [log, setLog] = useState([]);
   const [winner, setWinner] = useState(null);
   const [loading, setLoading] = useState(false);
   const [showTeams, setShowTeams] = useState(false);
@@ -16,7 +15,6 @@ export default function Arena() {
   const startMatch = async () => {
   setLoading(true);
   setWinner(null);
-  setLog([]);
   setShowTeams(false);
   setPlayerTeam([]);
   setCpuTeam([]);
@@ -29,7 +27,7 @@ export default function Arena() {
   setCpuTeam(cTeam);
 
   const result = runBattle(pTeam, cTeam);
-  setLog(result.log);
+  
 
   setShowTeams(true);
 
@@ -39,10 +37,10 @@ export default function Arena() {
   let index = 0; 
 
   const interval = setInterval(() => {
-    setDisplayedLog(prev => [...prev, result.log[index]]);
+    setDisplayedLog(log => [...log, result.log[index]]);
     index++;
 
-    if (index === result.log.length) {
+    if (index +1 === result.log.length) {
       clearInterval(interval);
 
       setTimeout(() => {
